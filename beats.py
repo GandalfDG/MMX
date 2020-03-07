@@ -2,6 +2,9 @@ import librosa as rosa
 import numpy as np
 
 def average_delta(ref_audio, uncal_audio, range=0.3):
+    """
+    return the average difference between each beat in the reference and uncalibrated track in seconds
+    """
     
     refbeats, uncalbeats = match_beats(ref_audio,uncal_audio)
     
@@ -23,14 +26,10 @@ def match_beats(ref_audio, uncal_audio, range=.3, sr=22050):
     uncal_beats = find_beats(uncal_audio, sr).tolist()
 
     # only reference beats which have an uncalibrated beat nearby should be kept
-    pruned_reference_beats = []
-    for ref in ref_beats:
-        for uncal in uncal_beats:
-            if uncal <= ref + range and uncal >= ref - range:
-                pruned_reference_beats.append(ref)
-                break
+    pruned_reference_beats = [beat for beat in ref_beats 
+                                if len([unbeat for unbeat in uncal_beats if unbeat <= beat + range and unbeat >= beat - range]) > 0]
 
-    return(pruned_reference_beats, uncal_beats)
+    return (pruned_reference_beats, uncal_beats)
 
 
 def find_beats(audio, sr=22050):
