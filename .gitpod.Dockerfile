@@ -3,7 +3,7 @@ FROM gitpod/workspace-full
 USER gitpod
 
 RUN sudo apt-get -q update && \
-    sudo apt-get install libsndfile1 && \
+    sudo apt-get install -yq libsndfile1 && \
     sudo rm -rf /var/lib/apt/lists/*
 
 # Install custom tools, runtime, etc. using apt-get
