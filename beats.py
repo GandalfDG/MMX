@@ -29,6 +29,8 @@ def match_beats(ref_audio, uncal_audio, range=.3, sr=22050):
     pruned_reference_beats = [beat for beat in ref_beats 
                                 if len([unbeat for unbeat in uncal_beats if unbeat <= beat + range and unbeat >= beat - range]) > 0]
 
+    uncal_beats = uncal_beats[:len(pruned_reference_beats)]
+
     return (pruned_reference_beats, uncal_beats)
 
 
