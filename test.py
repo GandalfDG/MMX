@@ -1,5 +1,8 @@
 import librosa as lr
 from beats import *
+from record import *
+
+
 
 audio1 = lr.core.load('test/clicktrack.ogg', duration=10)
 audio2 = lr.core.load('test/clicktrack.ogg', duration=5, offset=.1)
